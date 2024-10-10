@@ -1,5 +1,5 @@
-import { Readable } from "./observable/store-types";
-import { tap, untap } from "./observable/stores";
+import type { Readable } from "./observable/store-types.ts";
+import { tap, untap } from "./observable/stores.ts";
 
 
 type MaybePromise = Promise<void> | void;

@@ -1,6 +1,6 @@
 // import { ECS } from "../../ecs";
-import { create_signal } from "./signal";
-import type { Milliseconds, Seconds } from "./types";
+import { create_signal } from "./signal.ts";
+import type { Milliseconds, Seconds } from "./common.ts";
 
 export type GameTimer = {
   update: (dt: Milliseconds) => void;

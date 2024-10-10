@@ -1,4 +1,4 @@
-import type { Readable, StartStopNotifier, Subscriber, Unsubscriber, Writable, StoresValues } from "./store-types";
+import type { Readable, StartStopNotifier, Subscriber, Unsubscriber, Writable, StoresValues } from "./store-types.js";
 
 export type { Readable, Writable, Subscriber, Unsubscriber, StoresValues };
 
