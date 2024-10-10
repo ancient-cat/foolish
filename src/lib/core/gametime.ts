@@ -9,7 +9,7 @@ export type GameTimer = {
   get_elapsed: () => Seconds;
   create_throttle: <CallbackResult = any, CallbackArgs extends Array<any> = any[]>(
     time: Seconds,
-    callback: (...args: CallbackArgs) => CallbackResult
+    callback: (...args: CallbackArgs) => CallbackResult,
   ) => (...args: CallbackArgs) => readonly [boolean, CallbackResult] | readonly [boolean];
   create_interval: (period: Seconds, callback: Function) => () => void;
 };
@@ -58,13 +58,11 @@ export const GameTime: GameTimer = {
 
   create_throttle: <CallbackResult = any, CallbackArgs extends Array<any> = any[]>(
     time: Seconds,
-    callback: (...args: CallbackArgs) => CallbackResult
+    callback: (...args: CallbackArgs) => CallbackResult,
   ) => {
     let next_call = elapsed_time + time;
 
-    const execute = (
-      ...args: CallbackArgs
-    ): readonly [executed: boolean, result: CallbackResult] | [executed: false] => {
+    const execute = (...args: CallbackArgs): readonly [executed: boolean, result: CallbackResult] | [executed: false] => {
       if (elapsed_time >= next_call) {
         next_call = elapsed_time + time;
         return [true, callback(...args)];

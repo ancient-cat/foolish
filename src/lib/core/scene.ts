@@ -1,7 +1,6 @@
 import type { Readable } from "./observable/store-types.ts";
 import { tap, untap } from "./observable/stores.ts";
 
-
 type MaybePromise = Promise<void> | void;
 export type Scene<T = undefined> = {
   name: string;
@@ -31,7 +30,6 @@ export type SceneManager = {
 
   update: (dt: number) => void;
   draw: () => void;
-
 };
 
 const default_scene_mode: SceneMode = {

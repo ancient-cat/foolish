@@ -5,28 +5,24 @@ export type GameTimeComponent = ComponentDefinition<{
   update: (elapsedTime: Seconds, dt: Milliseconds) => void;
 }>;
 
-
 export type ComponentMap = {
   gametime: GameTimeComponent;
 };
 
 export type ComponentDefinition<T> = T extends { type: keyof ComponentMap } ? T : never;
-  export type Entity = unknown;
+export type Entity = unknown;
 
-  export type ComponentType = ComponentMap[keyof ComponentMap];
+export type ComponentType = ComponentMap[keyof ComponentMap];
 
-  export type ComponentRecord = Identity & Partial<ComponentMap>;
+export type ComponentRecord = Identity & Partial<ComponentMap>;
 
-  export type QueriedComponentRecord<TComponentKeys extends keyof ComponentRecord> = Required<
-    Pick<ComponentRecord, TComponentKeys>
-  > &
-    Identity;
+export type QueriedComponentRecord<TComponentKeys extends keyof ComponentRecord> = Required<Pick<ComponentRecord, TComponentKeys>> &
+  Identity;
 
-  export type Component = keyof ComponentRecord;
-  export type Identity = {
-    entity: Entity;
-  };
-
+export type Component = keyof ComponentRecord;
+export type Identity = {
+  entity: Entity;
+};
 
 /**
  * Handles functionality for managing Entities, and their features

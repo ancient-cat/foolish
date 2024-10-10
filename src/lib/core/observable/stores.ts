@@ -78,7 +78,7 @@ export const create_readonly = <T>(store: Readable<T> | Writable<T>): Readable<T
 export const create_derived = <S extends [Readable<any>, ...Array<Readable<any>>], T>(
   stores: S,
   fn: (values: StoresValues<S>) => T,
-  initial_value?: T
+  initial_value?: T,
 ): Readable<T> => {
   const get = (): T => fn(stores.map((store) => store.get()) as StoresValues<typeof stores>);
   let inner_value: T = initial_value ?? get();
@@ -86,7 +86,7 @@ export const create_derived = <S extends [Readable<any>, ...Array<Readable<any>>
     const unsubscribes: Unsubscriber[] = stores.map((store, i) =>
       store.subscribe(() => {
         set(get());
-      })
+      }),
     );
 
     return () => {

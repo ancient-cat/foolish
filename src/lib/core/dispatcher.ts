@@ -6,15 +6,15 @@ export type EventDispatcher<
 > = {
   on: <EventName extends keyof EventMap>(
     event: EventName,
-    callback: (detail: EventMap[EventName]) => CallbackReturnMap[EventName]
+    callback: (detail: EventMap[EventName]) => CallbackReturnMap[EventName],
   ) => Unsubscriber;
   once: <EventName extends keyof EventMap>(
     event: EventName,
-    callback: (detail: EventMap[EventName]) => CallbackReturnMap[EventName]
+    callback: (detail: EventMap[EventName]) => CallbackReturnMap[EventName],
   ) => Unsubscriber;
   off: <EventName extends keyof EventMap>(
     event: EventName,
-    callback?: (detail: EventMap[EventName]) => CallbackReturnMap[EventName]
+    callback?: (detail: EventMap[EventName]) => CallbackReturnMap[EventName],
   ) => void;
   emit: <EventName extends keyof EventMap>(event: EventName, detail?: EventMap[EventName]) => void;
   clear: () => void;
@@ -57,7 +57,7 @@ export const create_event_dispatcher = <
         const list = events.get(event) ?? [];
         events.set(
           event,
-          list.filter((cb) => cb !== callback)
+          list.filter((cb) => cb !== callback),
         );
       }
     },
