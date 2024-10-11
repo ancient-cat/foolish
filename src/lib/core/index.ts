@@ -1,11 +1,14 @@
 import { Application, Sprite, Assets, Container } from "pixi.js";
 import { GameTime } from "./gametime.ts";
 import { Scenes } from "./scene.ts";
+import { app } from "./app.ts";
+
+export { app, };
 
 // The application will create a renderer using WebGL, if possible,
 // with a fallback to a canvas render. It will also setup the ticker
 // and the root stage PIXI.Container
-export const app = new Application();
+
 
 export const initialize = async (target: HTMLElement, background: string = "#1099bb") => {
   // Wait for the Renderer to be available
