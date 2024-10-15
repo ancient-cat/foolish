@@ -1,16 +1,16 @@
 import type { Readable } from "./observable/store-types.ts";
 import { tap, untap } from "./observable/stores.ts";
 import type { Application, Container, Ticker } from "pixi.js";
-import { app } from "./app.ts"
-
+import { app } from "./app.ts";
 
 type MaybePromise = Promise<void> | void;
+type MaybeUnsubscriber = (() => Promise<() => void>) | (() => void);
 export type Scene = {
   name: string;
   stores?: Readable<any>[];
   update: (t: Ticker) => void;
   init?: () => MaybePromise;
-  enter?: () => MaybePromise;
+  enter?: (from?: Scene) => MaybeUnsubscriber | MaybePromise | Promise<MaybeUnsubscriber>;
   exit?: () => MaybePromise;
 };
 
@@ -30,11 +30,18 @@ let scenes: Scene[] = [];
 
 export const initialized_scenes = new Set<Scene["name"]>();
 const running_scenes: Set<string> = new Set();
+type Dismounter = ReturnType<Awaited<NonNullable<Scene["enter"]>>>;
+let scene_dismounts = new Map<string, Dismounter>();
 
 const enter_scene = async (scene: Scene) => {
-  
   if (scene.enter !== undefined) {
-    await scene.enter();
+    const dismount = await scene.enter();
+    if (dismount !== undefined) {
+      if (scene_dismounts.has(scene.name)) {
+        console.error(`Adding dismounts for a scene already mounted: "${scene.name}". You should give these scenes unique names`);
+      }
+      scene_dismounts.set(scene.name, dismount);
+    }
   }
 
   Scenes.resume(scene);
@@ -52,6 +59,13 @@ const exit_scene = async (scene: Scene) => {
   }
 
   Scenes.pause(scene);
+
+  if (scene_dismounts.has(scene.name)) {
+    const dismounter = scene_dismounts.get(scene.name);
+    if (typeof dismounter === "function") {
+      await dismounter();
+    }
+  }
 
   if (scene.exit !== undefined) {
     await scene.exit();
@@ -121,5 +135,5 @@ export const Scenes: SceneManager = {
   resume: (scene) => {
     running_scenes.add(scene.name);
     app.ticker.add(scene.update);
-  }
+  },
 };
