@@ -1,4 +1,4 @@
-import type { Milliseconds, Seconds } from "./common.ts";
+import type { Milliseconds, Seconds } from "./common.js";
 
 export type GameTimeComponent = ComponentDefinition<{
   type: "gametime";

@@ -1,7 +1,7 @@
 import { Application, Sprite, Assets, Container } from "pixi.js";
-import { GameTime } from "./gametime.ts";
-import { Scenes } from "./scene.ts";
-import { app, signal_as_ready } from "./app.ts";
+import { GameTime } from "./gametime.js";
+import { Scenes } from "./scene.js";
+import { app, signal_as_ready } from "./app.js";
 
 export { app };
 

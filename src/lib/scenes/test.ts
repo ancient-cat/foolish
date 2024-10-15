@@ -1,6 +1,6 @@
-import { app } from "$lib/core/app.ts";
-import { create_input_map } from "$lib/core/input.ts";
-import { Scenes } from "$lib/core/scene.ts";
+import { app } from "$lib/core/app.js";
+import { create_input_map } from "$lib/core/input.js";
+import { Scenes } from "$lib/core/scene.js";
 import { Container, Application, Graphics } from "pixi.js";
 
 export default Scenes.create(() => {

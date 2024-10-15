@@ -1,6 +1,6 @@
 import type { Ticker } from "pixi.js";
-import { assert } from "./assert.ts";
-import { create_event_dispatcher } from "./dispatcher.ts";
+import { assert } from "./assert.js";
+import { create_event_dispatcher } from "./dispatcher.js";
 
 type KeyboardEventMap = {
   keydown: KeyboardEvent;

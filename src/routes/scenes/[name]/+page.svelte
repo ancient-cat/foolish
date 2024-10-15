@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Scene } from "$lib/core/scene.ts";
+  import type { Scene } from "$lib/core/scene.js";
   import Renderer from "../../Renderer.svelte";
   import type { PageData } from "./$types.js";
   import SceneLoader from "./SceneLoader.svelte";

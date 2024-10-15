@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Scene } from "$lib/core/scene.ts";
+  import type { Scene } from "$lib/core/scene.js";
   import { onMount } from "svelte";
-  import type { ExampleScene } from "./+page.ts";
+  import type { ExampleScene } from "./+page.js";
   import { browser, building, dev, version } from "$app/environment";
 
   export let name: ExampleScene;

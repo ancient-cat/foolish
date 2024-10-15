@@ -1,9 +1,9 @@
-import { Scenes, type Scene } from "$lib/core/scene.ts";
+import { Scenes, type Scene } from "$lib/core/scene.js";
 import { Container, Assets, Sprite, Texture } from "pixi.js";
 
-import { create_input_map } from "$lib/core/input.ts";
-import { mount_all } from "$lib/core/observable/utils.ts";
-import { create_camera } from "$lib/core/camera.ts";
+import { create_input_map } from "$lib/core/input.js";
+import { mount_all } from "$lib/core/observable/utils.js";
+import { create_camera } from "$lib/core/camera.js";
 
 export default Scenes.create(() => {
   const container = new Container();

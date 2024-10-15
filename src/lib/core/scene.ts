@@ -1,7 +1,7 @@
-import type { Readable } from "./observable/store-types.ts";
-import { tap, untap } from "./observable/stores.ts";
+import type { Readable } from "./observable/store-types.js";
+import { tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
-import { app } from "./app.ts";
+import { app } from "./app.js";
 
 type MaybePromise = Promise<void> | void;
 type MaybeUnsubscriber = (() => Promise<() => void>) | (() => void);

@@ -1,6 +1,6 @@
-import { Scenes } from "$lib/core/scene.ts";
+import { Scenes } from "$lib/core/scene.js";
 import { Container, Assets, Sprite, Texture } from "pixi.js";
-import { app } from "../core/app.ts";
+import { app } from "../core/app.js";
 
 export default Scenes.create(() => {
   const container = new Container();

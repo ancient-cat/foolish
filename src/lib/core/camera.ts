@@ -1,5 +1,5 @@
 import { Container, Rectangle, Ticker, type ContainerChild } from "pixi.js";
-import { app, is_ready } from "./app.ts";
+import { app, is_ready } from "./app.js";
 
 export type Camera = ReturnType<typeof create_camera>;
 
