@@ -5,13 +5,13 @@ import { Container, Application, Graphics } from "pixi.js";
 
 export default Scenes.create(() => {
   const stage = new Container();
-  let obj = new Graphics().rect(0, 0, 200, 100).fill(0xff0000);
+  const obj = new Graphics().rect(0, 0, 200, 100).fill(0xff0000);
 
   const input = create_input_map({
-    move_left: "left",
-    move_right: "right",
-    move_up: "up",
-    move_down: "down",
+    move_left: "arrowleft",
+    move_right: "arrowright",
+    move_up: "arrowup",
+    move_down: "arrowdown",
   });
 
   return {
