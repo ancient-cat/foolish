@@ -2,9 +2,19 @@ import type { Ticker } from "pixi.js";
 import { assert } from "./assert.js";
 import { create_event_dispatcher } from "./dispatcher.js";
 
+export type KeyCommandEvent = {
+  key: string;
+  code: string;
+  ctrlKey: boolean;
+  altKey: boolean;
+  metaKey: boolean;
+  shiftKey: boolean;
+  timeStamp: number;
+};
+
 type KeyboardEventMap = {
-  keydown: KeyboardEvent;
-  keyup: KeyboardEvent;
+  keydown: KeyCommandEvent;
+  keyup: KeyCommandEvent;
 };
 
 export const create_keyboard_listener = () => {
@@ -14,14 +24,18 @@ export const create_keyboard_listener = () => {
   const on_keydown = (e: KeyboardEvent) => {
     if (!e.repeat) {
       is_down.add(e.key);
-      dispatcher.emit("keydown", e);
+      const { key, code, ctrlKey, altKey, shiftKey, timeStamp, metaKey } = e;
+      const kb2: KeyCommandEvent = { key, code, ctrlKey, altKey, shiftKey, timeStamp, metaKey };
+      dispatcher.emit("keydown", kb2);
     }
   };
 
   const on_keyup = (e: KeyboardEvent) => {
     if (!e.repeat) {
       is_down.delete(e.key);
-      dispatcher.emit("keyup", e);
+      const { key, code, ctrlKey, altKey, shiftKey, timeStamp, metaKey } = e;
+      const kb2: KeyCommandEvent = { key, code, ctrlKey, altKey, shiftKey, timeStamp, metaKey };
+      dispatcher.emit("keyup", kb2);
     }
   };
 
@@ -81,8 +95,8 @@ export const create_input_map = <InputMap extends Record<string, string>>(map: I
   const keyboard = create_keyboard_listener();
   const dispatcher = create_event_dispatcher<InputMap>();
 
-  const on_keydown = (e: KeyboardEvent) => {
-    const key = e.key.toLowerCase();
+  const on_keydown = (e: CustomEvent<KeyCommandEvent>) => {
+    const key = e.detail.key.toLowerCase();
     if (command_lookup.has(key)) {
       const command = command_lookup.get(key);
       assert(command !== undefined);
@@ -91,8 +105,8 @@ export const create_input_map = <InputMap extends Record<string, string>>(map: I
       dispatcher.emit(command);
     }
   };
-  const on_keyup = (e: KeyboardEvent) => {
-    const key = e.key.toLowerCase();
+  const on_keyup = (e: CustomEvent<KeyCommandEvent>) => {
+    const key = e.detail.key.toLowerCase();
     if (command_lookup.has(key)) {
       const command = command_lookup.get(key);
       assert(command !== undefined);

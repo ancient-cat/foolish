@@ -4,6 +4,10 @@ import { Container, Assets, Sprite, Texture } from "pixi.js";
 import { create_input_map } from "$lib/core/input.js";
 import { mount_all } from "$lib/core/observable/utils.js";
 import { create_camera } from "$lib/core/camera.js";
+import { create_ui } from "$lib/ui/ui.js";
+
+import type { Events, State } from "../ui/Camera.svelte";
+import Camera from "../ui/Camera.svelte";
 
 export default Scenes.create(() => {
   const container = new Container();
@@ -17,6 +21,9 @@ export default Scenes.create(() => {
   });
 
   const camera = create_camera();
+  const ui = create_ui<Events, State>(Camera, {
+    title: "Camera Scene",
+  });
 
   return {
     name: "camera_demo",
@@ -43,8 +50,12 @@ export default Scenes.create(() => {
 
       const dismount_all = mount_all(
         camera.mount(),
+        ui.on("reset", () => {
+          camera.center();
+        }),
+        ui.mount(),
         input.keyboard.on("keydown", (e) => {
-          console.log("keydown", e, e.key);
+          console.log("keydown", e, e.detail.key);
         }),
 
         input.on("move_left", () => {

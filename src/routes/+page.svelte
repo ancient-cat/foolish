@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { ExampleScene } from "./scenes/[name]/proxy+page.ts";
-
-  let scenes: ExampleScene[] = ["pixi-demo", "test", "camera"];
+  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test"];
 </script>
 
 <div class="page">

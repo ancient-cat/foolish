@@ -1,10 +1,13 @@
 import type { Readable } from "./observable/store-types.js";
-import { tap, untap } from "./observable/stores.js";
+import { create_writable, tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
 import { app } from "./app.js";
 
+export const current_scene = create_writable<Scene | undefined>(undefined);
+
 type MaybePromise = Promise<void> | void;
 type MaybeUnsubscriber = (() => Promise<() => void>) | (() => void);
+
 export type Scene = {
   name: string;
   stores?: Readable<any>[];

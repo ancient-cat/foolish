@@ -1,7 +1,9 @@
 import { app } from "$lib/core/app.js";
 import { create_input_map } from "$lib/core/input.js";
 import { Scenes } from "$lib/core/scene.js";
+import { create_ui } from "$lib/ui/ui.js";
 import { Container, Application, Graphics } from "pixi.js";
+import TestComponent from "$lib/ui/UI_Test.svelte";
 
 export default Scenes.create(() => {
   const stage = new Container();
@@ -14,10 +16,13 @@ export default Scenes.create(() => {
     move_down: "arrowdown",
   });
 
+  const ui = create_ui(TestComponent);
+
   return {
     name: "test_id",
 
     enter: () => {
+      ui.mount();
       app.stage.addChild(stage);
       stage.addChild(obj);
       const unsubscribe = input.subscribe();
