@@ -6,8 +6,8 @@ import { mount_all } from "$lib/core/observable/utils.js";
 import { create_camera } from "$lib/core/camera.js";
 import { create_ui } from "$lib/ui/ui.js";
 
-import type { Events, State } from "../ui/Camera.svelte";
-import Camera from "../ui/Camera.svelte";
+import type { Events, State } from "./Camera.svelte";
+import Camera from "./Camera.svelte";
 
 export default Scenes.create(() => {
   const container = new Container();

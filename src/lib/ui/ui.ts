@@ -4,8 +4,6 @@ import { get, writable, type Writable } from "svelte/store";
 import { assert } from "$lib/core/assert.js";
 
 export const root_el = writable<HTMLElement | undefined>(undefined);
-// export const current_ui = writable<ComponentBridge | undefined>(undefined);
-// export const current_state = writable<unknown>(undefined);
 
 export const create_ui = <EventMap extends Record<string, any> = Record<string, any>, State = any>(
   Component: ComponentType,
@@ -20,7 +18,6 @@ export const create_ui = <EventMap extends Record<string, any> = Record<string, 
     const target = get(root_el);
     assert(target !== undefined, "root element was not ready before ui.mount() was called");
 
-    console.log("Mounting component to", target);
     component = new Component({
       target,
       intro: true,
@@ -34,8 +31,7 @@ export const create_ui = <EventMap extends Record<string, any> = Record<string, 
       if (component !== undefined) {
         component.$destroy();
       }
-      // dismountComponent();
-      // current_ui.set(undefined);
+
       events.clear();
     };
   };

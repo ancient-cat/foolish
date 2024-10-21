@@ -3,7 +3,7 @@ import { create_input_map } from "$lib/core/input.js";
 import { Scenes } from "$lib/core/scene.js";
 import { create_ui } from "$lib/ui/ui.js";
 import { Container, Application, Graphics } from "pixi.js";
-import TestComponent from "$lib/ui/UI_Test.svelte";
+import UI_Test from "$lib/scenes/UI_Test.svelte";
 
 export default Scenes.create(() => {
   const stage = new Container();
@@ -16,7 +16,7 @@ export default Scenes.create(() => {
     move_down: "arrowdown",
   });
 
-  const ui = create_ui(TestComponent);
+  const ui = create_ui(UI_Test);
 
   return {
     name: "test_id",

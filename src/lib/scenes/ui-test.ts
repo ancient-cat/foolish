@@ -1,7 +1,7 @@
 import { app } from "$lib/core/app.js";
 import { mount_all } from "$lib/core/observable/utils.js";
 import { Scenes } from "$lib/core/scene.js";
-import UI_Test, { type Events, type State } from "../ui/UI_Test.svelte";
+import UI_Test, { type Events, type State } from "../scenes/UI_Test.svelte";
 import { create_ui } from "$lib/ui/ui.js";
 import { Assets, Container, Graphics, Sprite, Text, type Texture } from "pixi.js";
 
