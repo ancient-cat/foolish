@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { base } from "$app/paths";
+
   let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test"];
 </script>
 
@@ -8,7 +10,7 @@
     <ul>
       {#each scenes as scene}
         <li>
-          <a href={`/scenes/${scene}`}>/scenes/{scene}</a>
+          <a href={`${base}/scenes/${scene}`}>/scenes/{scene}</a>
         </li>
       {/each}
     </ul>
