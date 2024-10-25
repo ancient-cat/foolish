@@ -4,7 +4,7 @@ export const mount_all = (...t: any[]) => {
   list.push(...t);
 
   const unsub_all = () => {
-    for (let cb of list) {
+    for (const cb of list) {
       if (typeof cb === "function") {
         cb();
       }

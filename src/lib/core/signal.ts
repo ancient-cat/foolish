@@ -1,13 +1,13 @@
 type SignalUnsubscriber = () => void;
 
-export type Signal<EventDetail extends any = any> = {
+export type Signal<EventDetail = any> = {
   subscribe: (callback: (detail: EventDetail) => any) => SignalUnsubscriber;
   once: (callback: (detail: EventDetail) => any) => SignalUnsubscriber;
   unsubscribe: (callback?: (detail: EventDetail) => any) => void;
   clear: () => void;
   emit: (detail: EventDetail) => void;
 };
-export const create_signal = <EventDetail extends any = any>(): Signal<EventDetail> => {
+export const create_signal = <EventDetail = any>(): Signal<EventDetail> => {
   let listeners: CallableFunction[] = [];
   const signal: Signal<EventDetail> = {
     subscribe: (callback) => {

@@ -81,7 +81,7 @@ export const create_derived = <S extends [Readable<any>, ...Array<Readable<any>>
   initial_value?: T,
 ): Readable<T> => {
   const get = (): T => fn(stores.map((store) => store.get()) as StoresValues<typeof stores>);
-  let inner_value: T = initial_value ?? get();
+  const inner_value: T = initial_value ?? get();
   return create_readable(inner_value, (set) => {
     const unsubscribes: Unsubscriber[] = stores.map((store, i) =>
       store.subscribe(() => {

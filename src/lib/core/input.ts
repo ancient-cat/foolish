@@ -75,7 +75,7 @@ export const create_input_map = <InputMap extends Record<string, string>>(map: I
   const just_pressed = new Set<Command>();
   const command_lookup = new Map<string, Command>();
 
-  for (let key in map) {
+  for (const key in map) {
     const value = map[key];
     command_lookup.set(value, key);
     // if (Array.isArray(value)) {

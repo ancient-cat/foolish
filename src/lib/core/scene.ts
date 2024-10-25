@@ -29,12 +29,12 @@ export type SceneManager = {
   resume: (scene: Scene) => void;
 };
 
-let scenes: Scene[] = [];
+const scenes: Scene[] = [];
 
 export const initialized_scenes = new Set<Scene["name"]>();
 const running_scenes: Set<string> = new Set();
 type Dismounter = ReturnType<Awaited<NonNullable<Scene["enter"]>>>;
-let scene_dismounts = new Map<string, Dismounter>();
+const scene_dismounts = new Map<string, Dismounter>();
 
 const enter_scene = async (scene: Scene) => {
   if (scene.enter !== undefined) {

@@ -45,8 +45,7 @@ export default Scenes.create(() => {
       container.addChild(basicText);
       basicText.x = 0;
       basicText.y = -50;
-      let texture: Texture;
-      texture = await Assets.load("https://pixijs.com/assets/bunny.png");
+      const texture = await Assets.load<Texture>("https://pixijs.com/assets/bunny.png");
 
       // Create a 5x5 grid of bunnies in the container
       for (let i = 0; i < 25; i++) {

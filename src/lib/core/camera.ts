@@ -10,8 +10,8 @@ export type CameraInitOptions = {
 export const create_camera = (options?: CameraInitOptions) => {
   let offset_x: number = 0;
   let offset_y: number = 0;
-  let zoom_level = 1;
-  let rotation_angle = 0;
+  const zoom_level = 1;
+  const rotation_angle = 0;
 
   const node = new Container();
 

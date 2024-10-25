@@ -10,3 +10,4 @@ export * from "./core/scene.js";
 export * from "./core/gametime.js";
 export * from "./core/input.js";
 export * from "./ui/index.js";
+export * from "./core/viewport/index.js";
