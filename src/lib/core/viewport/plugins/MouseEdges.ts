@@ -1,6 +1,6 @@
-import { Plugin } from "./Plugin";
+import { Plugin } from "./Plugin.js";
 
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 import type { FederatedPointerEvent } from "pixi.js";
 
 /** Insets for mouse edges scrolling regions */

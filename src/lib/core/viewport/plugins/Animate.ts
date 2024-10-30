@@ -1,8 +1,8 @@
 import { type PointData, Point } from "pixi.js";
-import { Plugin } from "./Plugin";
-import ease from "../ease";
+import { Plugin } from "./Plugin.js";
+import ease from "../ease.js";
 
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 
 /** Options for {@link Animate}. */
 export interface IAnimateOptions {

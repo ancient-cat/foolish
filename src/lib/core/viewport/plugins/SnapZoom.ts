@@ -1,8 +1,8 @@
-import { Plugin } from "./Plugin";
-import ease from "../ease";
+import { Plugin } from "./Plugin.js";
+import ease from "../ease.js";
 
 import type { Point } from "pixi.js";
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 
 /** Options for {@link SnapZoom}. */
 export interface ISnapZoomOptions {

@@ -1,6 +1,6 @@
-import { Plugin } from "./Plugin";
+import { Plugin } from "./Plugin.js";
 
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 
 /**
  * Options for {@link ClampZoom}.

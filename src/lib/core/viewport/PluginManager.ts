@@ -12,9 +12,9 @@ import type {
   Snap,
   SnapZoom,
   Wheel,
-} from "./plugins";
+} from "./plugins/index.js";
 import type { FederatedEvent } from "pixi.js";
-import type { Viewport } from "./Viewport";
+import type { Viewport } from "./Viewport.js";
 
 const PLUGIN_ORDER = [
   "drag",

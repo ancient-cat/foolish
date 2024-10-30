@@ -1,7 +1,7 @@
 import { Container, type IHitArea, EventSystem, type DestroyOptions, type View, type PointData, Point, Rectangle, Ticker } from "pixi.js";
 
-import { InputManager } from "./InputManager";
-import { PluginManager } from "./PluginManager";
+import { InputManager } from "./InputManager.js";
+import { PluginManager } from "./PluginManager.js";
 import {
   Animate,
   type IAnimateOptions,
@@ -27,7 +27,7 @@ import {
   type ISnapZoomOptions,
   Wheel,
   type IWheelOptions,
-} from "./plugins";
+} from "./plugins/index.js";
 
 /** Options for {@link Viewport}. */
 export interface IViewportOptions {

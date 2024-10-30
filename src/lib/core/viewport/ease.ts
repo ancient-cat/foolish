@@ -1,4 +1,4 @@
-import { penner as Penner } from "./external/penner";
+import { penner as Penner } from "./external/penner.js";
 
 /**
  * Returns correct Penner equation using string or Function.

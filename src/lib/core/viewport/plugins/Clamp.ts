@@ -1,7 +1,7 @@
 import { Point } from "pixi.js";
-import { Plugin } from "./Plugin";
+import { Plugin } from "./Plugin.js";
 
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 
 /**
  * There are three ways to clamp:
@@ -121,9 +121,8 @@ export class Clamp extends Plugin {
       this.underflowX = this.underflowY = 0;
       this.noUnderflow = false;
     } else {
-       
       this.underflowX = clamp.indexOf("left") !== -1 ? -1 : clamp.indexOf("right") !== -1 ? 1 : 0;
-       
+
       this.underflowY = clamp.indexOf("top") !== -1 ? -1 : clamp.indexOf("bottom") !== -1 ? 1 : 0;
       this.noUnderflow = false;
     }
@@ -178,14 +177,14 @@ export class Clamp extends Plugin {
         }
       } else {
         if (this.options.left !== null) {
-          if (this.parent.left < (this.options.left === true ? 0 : this.options.left)) {
+          if (this.parent.left < (this.options.left === true ? 0 : +this.options.left)) {
             this.parent.x = -(this.options.left === true ? 0 : this.options.left) * this.parent.scale.x;
             decelerate.x = 0;
             moved = true;
           }
         }
         if (this.options.right !== null) {
-          if (this.parent.right > (this.options.right === true ? this.parent.worldWidth : this.options.right)) {
+          if (this.parent.right > (this.options.right === true ? this.parent.worldWidth : +this.options.right)) {
             this.parent.x =
               -(this.options.right === true ? this.parent.worldWidth : this.options.right) * this.parent.scale.x + this.parent.screenWidth;
             decelerate.x = 0;
@@ -222,14 +221,14 @@ export class Clamp extends Plugin {
         }
       } else {
         if (this.options.top !== null) {
-          if (this.parent.top < (this.options.top === true ? 0 : this.options.top)) {
+          if (this.parent.top < (this.options.top === true ? 0 : +this.options.top)) {
             this.parent.y = -(this.options.top === true ? 0 : this.options.top) * this.parent.scale.y;
             decelerate.y = 0;
             moved = true;
           }
         }
         if (this.options.bottom !== null) {
-          if (this.parent.bottom > (this.options.bottom === true ? this.parent.worldHeight : this.options.bottom)) {
+          if (this.parent.bottom > (this.options.bottom === true ? this.parent.worldHeight : +this.options.bottom)) {
             this.parent.y =
               -(this.options.bottom === true ? this.parent.worldHeight : this.options.bottom) * this.parent.scale.y +
               this.parent.screenHeight;

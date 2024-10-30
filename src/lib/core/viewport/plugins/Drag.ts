@@ -1,10 +1,10 @@
 import { Point } from "pixi.js";
-import { Plugin } from "./Plugin";
+import { Plugin } from "./Plugin.js";
 
-import type { Decelerate } from "./Decelerate";
+import type { Decelerate } from "./Decelerate.js";
 import type { FederatedPointerEvent } from "pixi.js";
 import type { PointData } from "pixi.js";
-import type { Viewport } from "../Viewport";
+import type { Viewport } from "../Viewport.js";
 
 /** Options for {@link Drag}. */
 export interface IDragOptions {

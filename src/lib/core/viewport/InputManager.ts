@@ -1,6 +1,6 @@
 import { Point, Rectangle, type PointData, type FederatedPointerEvent } from "pixi.js";
 
-import type { Viewport } from "./Viewport";
+import type { Viewport } from "./Viewport.js";
 
 export interface IViewportTouch {
   id: number;
