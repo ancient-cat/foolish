@@ -5,7 +5,7 @@ import { create_ui } from "$lib/ui/ui.js";
 import { Container, Application, Graphics } from "pixi.js";
 import UI_Test from "$lib/scenes/UI_Test.svelte";
 
-export default Scenes.create(() => {
+export default Scenes.create(async () => {
   const stage = new Container();
   const obj = new Graphics().rect(0, 0, 200, 100).fill(0xff0000);
 

@@ -2,7 +2,7 @@ import { Scenes } from "$lib/core/scene.js";
 import { Container, Assets, Sprite, Texture } from "pixi.js";
 import { app } from "../core/app.js";
 
-export default Scenes.create(() => {
+export default Scenes.create(async () => {
   const container = new Container();
   let texture: Texture;
 

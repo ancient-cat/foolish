@@ -9,7 +9,7 @@ import { create_ui } from "$lib/ui/ui.js";
 import type { Events, State } from "./Camera.svelte";
 import Camera from "./Camera.svelte";
 
-export default Scenes.create(() => {
+export default Scenes.create(async () => {
   const container = new Container();
   let texture: Texture;
 

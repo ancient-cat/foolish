@@ -1,12 +1,21 @@
 import type { Readable } from "./observable/store-types.js";
 import { create_writable, tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
-import { app } from "./app.js";
+import { app, is_ready } from "./app.js";
 
 export const current_scene = create_writable<Scene | undefined>(undefined);
 
 type MaybePromise = Promise<void> | void;
 type MaybeUnsubscriber = (() => Promise<() => void>) | (() => void);
+
+/**
+ * A Scene, or a Scene that will be loaded once the application is ready
+ */
+type LoadedScene = Promise<Scene>;
+/**
+ * This is either a promise that returns to a scene, or a scene itself;
+ */
+type SceneInitializer = () => LoadedScene;
 
 export type Scene = {
   name: string;
@@ -18,15 +27,16 @@ export type Scene = {
 };
 
 export type SceneManager = {
-  init: () => void;
+  init: () => Promise<void>;
+  on_ready: Promise<void>;
   current: () => Scene | undefined;
   get_scenes: () => readonly Scene[];
-  create: (scene_init: () => Scene) => Scene;
-  switch: (scene: Scene) => Promise<Scene>;
-  push: (scene: Scene) => MaybePromise;
+  create: (scene_init: SceneInitializer) => LoadedScene;
+  switch: (scene: LoadedScene | Scene) => LoadedScene;
+  push: (scene: LoadedScene | Scene) => MaybePromise;
   pop: () => MaybePromise;
-  pause: (scene: Scene) => void;
-  resume: (scene: Scene) => void;
+  pause: (scene: LoadedScene | Scene) => void;
+  resume: (scene: LoadedScene | Scene) => void;
 };
 
 const scenes: Scene[] = [];
@@ -75,20 +85,28 @@ const exit_scene = async (scene: Scene) => {
   }
 };
 
+const { promise, resolve } = Promise.withResolvers<void>();
+
 export const Scenes: SceneManager = {
-  init: () => {
+  init: async () => {
     initialized_scenes.clear();
+    resolve();
   },
+
+  on_ready: promise,
+
   current: () => scenes.at(0) ?? undefined,
 
   get_scenes: () => scenes,
 
-  create: (scene_init: () => Scene) => {
-    const scene: Scene = scene_init();
+  create: async (scene_init) => {
+    await promise;
+    const scene: Scene = await scene_init();
     return scene;
   },
 
-  switch: async (scene) => {
+  switch: async (scene_capability) => {
+    const scene = await scene_capability;
     const previous = Scenes.current();
     if (previous != undefined) {
       await exit_scene(previous);
@@ -112,7 +130,8 @@ export const Scenes: SceneManager = {
     return scene;
   },
 
-  push: async (scene) => {
+  push: async (scene_capability) => {
+    const scene = await scene_capability;
     const current = Scenes.current();
     scenes.push(scene);
     await enter_scene(scene);
@@ -128,14 +147,16 @@ export const Scenes: SceneManager = {
     }
   },
 
-  pause: (scene) => {
+  pause: async (scene_capability) => {
+    const scene = await scene_capability;
     if (running_scenes.has(scene.name)) {
       app.ticker.remove(scene.update);
       running_scenes.delete(scene.name);
     }
   },
 
-  resume: (scene) => {
+  resume: async (scene_capability) => {
+    const scene = await scene_capability;
     running_scenes.add(scene.name);
     app.ticker.add(scene.update);
   },
