@@ -4,7 +4,7 @@
 
   import { createEventDispatcher } from "svelte";
   import { initialize } from "$lib/core/index.js";
-  import type { Scene } from "@ancient-cat/foolish";
+  import { Scenes, type Scene } from "$lib/core/scene.js";
 
   let scene: Scene;
 
@@ -12,6 +12,7 @@
 
   async function start(e: CustomEvent<HTMLElement>) {
     await initialize(e.detail);
+    Scenes.init();
     dispatch("start");
   }
 </script>

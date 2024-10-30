@@ -89,6 +89,7 @@ const { promise, resolve } = Promise.withResolvers<void>();
 
 export const Scenes: SceneManager = {
   init: async () => {
+    console.log("Initializing Scenes");
     initialized_scenes.clear();
     resolve();
   },
@@ -102,6 +103,7 @@ export const Scenes: SceneManager = {
   create: async (scene_init) => {
     await promise;
     const scene: Scene = await scene_init();
+    console.log("Created scene:", scene.name);
     return scene;
   },
 
