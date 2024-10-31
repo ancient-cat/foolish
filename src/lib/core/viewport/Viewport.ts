@@ -434,10 +434,10 @@ export class Viewport extends Container {
     this.moveCenter(value);
   }
 
-  public moveCenter(x: number, y: number): Viewport;
+  public moveCenter(x: number, y: number): this;
 
   /** Move center of viewport to {@code center}. */
-  public moveCenter(center: PointData): Viewport;
+  public moveCenter(center: PointData): this;
 
   /**
    * Move center of viewport to (x, y)
@@ -445,7 +445,7 @@ export class Viewport extends Container {
    * @param {number} [y]
    * @return {Viewport}
    */
-  public moveCenter(...args: [number, number] | [PointData]): Viewport {
+  public moveCenter(...args: [number, number] | [PointData]): this {
     let x: number;
     let y: number;
 
@@ -478,10 +478,10 @@ export class Viewport extends Container {
   }
 
   /** Move Viewport's top-left corner; also clamps and resets decelerate and bounce (as needed) */
-  public moveCorner(x: number, y: number): Viewport;
+  public moveCorner(x: number, y: number): this;
 
   /** move Viewport's top-left corner; also clamps and resets decelerate and bounce (as needed) */
-  public moveCorner(center: Point): Viewport;
+  public moveCorner(center: Point): this;
 
   /**
    * MoveCorner
@@ -489,7 +489,7 @@ export class Viewport extends Container {
    * @param {number} [y]
    * @returns {Viewport}
    */
-  public moveCorner(...args: [number, number] | [Point]): Viewport {
+  public moveCorner(...args: [number, number] | [Point]): this {
     let x;
     let y;
 
@@ -581,7 +581,7 @@ export class Viewport extends Container {
    * @param noClamp - whether to disable clamp-zoom
    * @returns {Viewport} this
    */
-  fitWidth(width = this.worldWidth, center?: boolean, scaleY = true, noClamp?: boolean): Viewport {
+  fitWidth(width = this.worldWidth, center?: boolean, scaleY = true, noClamp?: boolean): this {
     let save: Point | undefined;
 
     if (center) {
@@ -615,7 +615,7 @@ export class Viewport extends Container {
    * @param {boolean} [noClamp] whether to disable clamp-zoom
    * @returns {Viewport} this
    */
-  fitHeight(height = this.worldHeight, center?: boolean, scaleX = true, noClamp?: boolean): Viewport {
+  fitHeight(height = this.worldHeight, center?: boolean, scaleX = true, noClamp?: boolean): this {
     let save: Point | undefined;
 
     if (center) {
@@ -646,7 +646,7 @@ export class Viewport extends Container {
    * @param {boolean} center maintain the same center of the screen after zoom
    * @returns {Viewport} this
    */
-  fitWorld(center?: boolean): Viewport {
+  fitWorld(center?: boolean): this {
     let save: Point | undefined;
 
     if (center) {
@@ -683,7 +683,7 @@ export class Viewport extends Container {
    * @param {number} [height=this.worldHeight] desired height
    * @returns {Viewport} this
    */
-  fit(center?: boolean, width = this.worldWidth, height = this.worldHeight): Viewport {
+  fit(center?: boolean, width = this.worldWidth, height = this.worldHeight): this {
     let save: Point | undefined;
 
     if (center) {
@@ -717,7 +717,7 @@ export class Viewport extends Container {
    * @param {boolean} [center] maintain the same center of the screen after zoom
    * @return {Viewport} this
    */
-  setZoom(scale: number, center?: boolean): Viewport {
+  setZoom(scale: number, center?: boolean): this {
     let save;
 
     if (center) {
@@ -743,7 +743,7 @@ export class Viewport extends Container {
    * @param {boolean} [center] maintain the same center of the screen after zoom
    * @return {Viewport} this
    */
-  zoomPercent(percent: number, center?: boolean): Viewport {
+  zoomPercent(percent: number, center?: boolean): this {
     return this.setZoom(this.scale.x + this.scale.x * percent, center);
   }
 
@@ -754,7 +754,7 @@ export class Viewport extends Container {
    * @param {boolean} [center] maintain the same center of the screen after zoom
    * @return {Viewport} this
    */
-  zoom(change: number, center?: boolean): Viewport {
+  zoom(change: number, center?: boolean): this {
     this.fitWidth(change + this.worldScreenWidth, center);
 
     return this;
@@ -785,7 +785,7 @@ export class Viewport extends Container {
    *   desired zoom
    * @param {boolean} [options.noMove] - zoom but do not move
    */
-  snapZoom(options?: ISnapZoomOptions): Viewport {
+  snapZoom(options?: ISnapZoomOptions): this {
     this.plugins.add("snap-zoom", new SnapZoom(this, options));
 
     return this;
@@ -898,7 +898,7 @@ export class Viewport extends Container {
    * @param {number} [options.lineHeight=20] - scaling factor for non-DOM_DELTA_PIXEL scrolling events
    * @returns {Viewport} this
    */
-  public drag(options?: IDragOptions): Viewport {
+  public drag(options?: IDragOptions): this {
     this.plugins.add("drag", new Drag(this, options));
 
     return this;
@@ -934,7 +934,7 @@ export class Viewport extends Container {
    * @param {string} [underflow=center] - where to place world if too small for screen (e.g., top-right, center,
    *  none, bottomLeft)     * @returns {Viewport} this
    */
-  public clamp(options?: IClampOptions): Viewport {
+  public clamp(options?: IClampOptions): this {
     this.plugins.add("clamp", new Clamp(this, options));
 
     return this;
@@ -952,7 +952,7 @@ export class Viewport extends Container {
    * @param {number} [options.minSpeed=0.01] - minimum velocity before stopping/reversing acceleration
    * @return {Viewport} this
    */
-  public decelerate(options?: IDecelerateOptions): Viewport {
+  public decelerate(options?: IDecelerateOptions): this {
     this.plugins.add("decelerate", new Decelerate(this, options));
 
     return this;
@@ -979,7 +979,7 @@ export class Viewport extends Container {
    *  where to place world if too small for screen
    * @return {Viewport} this
    */
-  public bounce(options?: IBounceOptions): Viewport {
+  public bounce(options?: IBounceOptions): this {
     this.plugins.add("bounce", new Bounce(this, options));
 
     return this;
@@ -996,7 +996,7 @@ export class Viewport extends Container {
    * @param {('all'|'x'|'y')} [options.axis=all] - axis to zoom
    * @return {Viewport} this
    */
-  public pinch(options?: IPinchOptions): Viewport {
+  public pinch(options?: IPinchOptions): this {
     this.plugins.add("pinch", new Pinch(this, options));
 
     return this;
@@ -1020,7 +1020,7 @@ export class Viewport extends Container {
    *   the desired location
    * @return {Viewport} this
    */
-  public snap(x: number, y: number, options?: ISnapOptions): Viewport {
+  public snap(x: number, y: number, options?: ISnapOptions): this {
     this.plugins.add("snap", new Snap(this, x, y, options));
 
     return this;
@@ -1046,7 +1046,7 @@ export class Viewport extends Container {
    *   without moving the viewport     * @returns {Viewport} this
    * @returns {Viewport} this
    */
-  public follow(target: Container, options?: IFollowOptions): Viewport {
+  public follow(target: Container, options?: IFollowOptions): this {
     this.plugins.add("follow", new Follow(this, target, options));
 
     return this;
@@ -1067,7 +1067,7 @@ export class Viewport extends Container {
    * @param {('all'|'x'|'y')} [options.axis=all] - axis to zoom
    * @return {Viewport} this
    */
-  public wheel(options?: IWheelOptions): Viewport {
+  public wheel(options?: IWheelOptions): this {
     this.plugins.add("wheel", new Wheel(this, options));
 
     return this;
@@ -1091,7 +1091,7 @@ export class Viewport extends Container {
    * @param {boolean} [options.removeOnInterrupt] removes this plugin if interrupted by any user input
    * @returns {Viewport} this
    */
-  public animate(options: IAnimateOptions): Viewport {
+  public animate(options: IAnimateOptions): this {
     this.plugins.add("animate", new Animate(this, options));
 
     return this;
@@ -1119,7 +1119,7 @@ export class Viewport extends Container {
    * @param {number} [options.maxScale] - minimum scale
    * @return {Viewport} this
    */
-  public clampZoom(options: IClampZoomOptions): Viewport {
+  public clampZoom(options: IClampZoomOptions): this {
     this.plugins.add("clamp-zoom", new ClampZoom(this, options));
 
     return this;
@@ -1144,7 +1144,7 @@ export class Viewport extends Container {
    *   movement (Math.cos(angle from center), Math.sin(angle from center))
    * @param {boolean} [options.allowButtons] allows plugin to continue working even when there's a mousedown event
    */
-  public mouseEdges(options: IMouseEdgesOptions): Viewport {
+  public mouseEdges(options: IMouseEdgesOptions): this {
     this.plugins.add("mouse-edges", new MouseEdges(this, options));
 
     return this;

@@ -3,11 +3,12 @@ import { Container, Assets, Sprite, Texture } from "pixi.js";
 
 import { create_input_map } from "$lib/core/input.js";
 import { mount_all } from "$lib/core/observable/utils.js";
-import { create_camera } from "$lib/core/camera.js";
 import { create_ui } from "$lib/ui/ui.js";
 
 import type { Events, State } from "./Camera.svelte";
 import Camera from "./Camera.svelte";
+import { as_draggable, create_viewport } from "$lib/create_viewport.js";
+import { app } from "$lib/core/app.js";
 
 export default Scenes.create(async () => {
   const container = new Container();
@@ -20,7 +21,15 @@ export default Scenes.create(async () => {
     move_down: "arrowdown",
   });
 
-  const camera = create_camera();
+  const camera = create_viewport(
+    app,
+    {
+      worldWidth: 2000,
+      worldHeight: 2000,
+    },
+    as_draggable(),
+  );
+
   const ui = create_ui<Events, State>(Camera, {
     title: "Camera Scene",
   });
@@ -41,17 +50,16 @@ export default Scenes.create(async () => {
       // Center the bunny sprites in local container coordinates
       container.pivot.x = container.width / 2;
       container.pivot.y = container.height / 2;
+      camera.addChild(container);
+      camera.moveCenter(container);
     },
     enter: async () => {
       // Create and add a container to the stage
 
-      camera.addChild(container);
-      camera.centerOn(container);
-
       const dismount_all = mount_all(
         camera.mount(),
         ui.on("reset", () => {
-          camera.center();
+          camera.moveCenter(container);
         }),
         ui.mount(),
         input.keyboard.on("keydown", (e) => {
@@ -85,18 +93,18 @@ export default Scenes.create(async () => {
     update: (time) => {
       const px_per_sec = 8 * time.deltaTime;
       if (input.is_down("move_left")) {
-        camera.move(-1 * px_per_sec, 0);
+        // camera.moveCorner(-1 * px_per_sec, 0);
         // container.rotation -= 0.01 * time.deltaTime;
       } else if (input.is_down("move_right")) {
-        camera.move(px_per_sec, 0);
+        // camera.moveCorner(px_per_sec, 0);
         // container.rotation += 0.01 * time.deltaTime;
       }
 
       if (input.is_down("move_up")) {
-        camera.move(0, -1 * px_per_sec);
+        // camera.moveCorner(0, -1 * px_per_sec);
         // container.rotation -= 0.01 * time.deltaTime;
       } else if (input.is_down("move_down")) {
-        camera.move(0, px_per_sec);
+        // camera.moveCorner(0, px_per_sec);
         // container.rotation += 0.01 * time.deltaTime;
       }
 

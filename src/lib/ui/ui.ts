@@ -37,6 +37,14 @@ export const create_ui = <EventMap extends Record<string, any> = Record<string, 
   };
 
   return {
+    get component() {
+      return component;
+    },
+    set: (props: Partial<ComponentProps<NonNullable<typeof component>>>) => {
+      if (component) {
+        component.$set(props);
+      }
+    },
     mount,
     state,
     ...events,
