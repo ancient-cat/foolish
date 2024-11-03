@@ -16,7 +16,9 @@ export default Scenes.create(async () => {
     move_down: "arrowdown",
   });
 
-  const ui = create_ui(UI_Test);
+  const ui = create_ui(UI_Test, {
+    title: "Hello World",
+  });
 
   return {
     name: "test_id",

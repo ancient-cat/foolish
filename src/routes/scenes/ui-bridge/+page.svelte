@@ -1,0 +1,12 @@
+<script lang="ts">
+    import Game from "$lib/ui/Game.svelte";
+    import bridge from "$lib/scenes/bridge/index.js";
+    import { Scenes } from "$lib/index.js";
+  
+    async function initialize() {
+      Scenes.switch(bridge);
+    }
+  </script>
+  
+  <Game on:start={initialize} />
+  

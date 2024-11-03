@@ -12,32 +12,34 @@
 </script>
 
 <script lang="ts">
-  import type { EventDispatcher } from "$lib/core/dispatcher.js";
-  import { onMount } from "svelte";
-  import type { Writable } from "svelte/store";
+  import { createEventDispatcher,} from "svelte";
 
-  export let events: EventDispatcher<Events>;
-  export let state: Writable<State>;
+  const dispatch = createEventDispatcher();
+
+  export let title: string;
+  export let count: number = 0;
+
+  $: dispatch("count", count)
 
   function add() {
-    $state.count += 1;
-    events.emit("add", $state.count);
+    count += 1;
+    dispatch("add", count);
   }
 
   function subtract() {
-    $state.count -= 1;
-    events.emit("subtract", $state.count);
+    count -= 1;
+    dispatch("subtract", count);
   }
 
   function reset() {
-    events.emit("reset");
+    dispatch("reset");
   }
 </script>
 
-<h1>{$state.title}</h1>
+<h1>{title}</h1>
 
 <button on:click={reset}>Reset</button>
 
 <button on:click={subtract}> - </button>
-{$state.count}
+{count}
 <button on:click={add}> + </button>

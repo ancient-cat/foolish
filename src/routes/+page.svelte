@@ -1,7 +1,7 @@
 <script lang="ts">
   import { base } from "$app/paths";
 
-  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test"];
+  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge"];
 </script>
 
 <div class="page">

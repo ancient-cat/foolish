@@ -1,11 +1,9 @@
-import { Scenes, type Scene } from "$lib/core/scene.js";
+import { Scenes, } from "$lib/core/scene.js";
 import { Container, Assets, Sprite, Texture } from "pixi.js";
 
 import { create_input_map } from "$lib/core/input.js";
 import { mount_all } from "$lib/core/observable/utils.js";
 import { create_ui } from "$lib/ui/ui.js";
-
-import type { Events, State } from "./Camera.svelte";
 import Camera from "./Camera.svelte";
 import { as_draggable, create_viewport } from "$lib/create_viewport.js";
 import { app } from "$lib/core/app.js";
@@ -30,7 +28,7 @@ export default Scenes.create(async () => {
     as_draggable(),
   );
 
-  const ui = create_ui<Events, State>(Camera, {
+  const ui = create_ui(Camera, {
     title: "Camera Scene",
   });
 

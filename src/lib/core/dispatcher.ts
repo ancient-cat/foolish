@@ -2,7 +2,7 @@ import { assert } from "$lib/core/assert.js";
 
 type Unsubscriber = () => void;
 
-export type EventDispatcher<EventMap extends Record<string, any> = Record<string, any>> = {
+export interface EventDispatcher<EventMap extends Record<string, any> = Record<string, any>> {
   on: <EventName extends keyof EventMap>(type: EventName, callback: (event: CustomEvent<EventMap[EventName]>) => unknown) => Unsubscriber;
   once: <EventName extends keyof EventMap>(type: EventName, callback: (event: CustomEvent<EventMap[EventName]>) => unknown) => Unsubscriber;
   off: <EventName extends keyof EventMap>(type: EventName, callback?: (event: CustomEvent<EventMap[EventName]>) => unknown) => void;

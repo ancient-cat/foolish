@@ -10,7 +10,7 @@ export default Scenes.create(async () => {
 
   const basicText = new Text({ text: "" });
 
-  const ui = create_ui<Events, State>(UI_Test, {
+  const ui = create_ui(UI_Test, {
     title: "UI Test",
     count: 4,
   });
@@ -24,15 +24,12 @@ export default Scenes.create(async () => {
       app.stage.addChild(container);
 
       const unsub = mount_all(
-        ui.state.subscribe(({ count }) => {
+        ui.on("count", ({ detail: count }) => {
           basicText.text = `Renderer count: ${count}`;
         }),
         ui.mount(),
         ui.on("reset", () => {
-          ui.state.update((v) => ({
-            ...v,
-            count: 0,
-          }));
+          ui.state.count = 0;
         }),
       );
 
