@@ -1,4 +1,3 @@
- 
 /*
     based on additional work by https://github.com/bcherny/penner
     Copyright © 2001 Robert Penner

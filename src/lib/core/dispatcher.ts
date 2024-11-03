@@ -8,7 +8,7 @@ export interface EventDispatcher<EventMap extends Record<string, any> = Record<s
   off: <EventName extends keyof EventMap>(type: EventName, callback?: (event: CustomEvent<EventMap[EventName]>) => unknown) => void;
   emit: <EventName extends keyof EventMap>(event: EventName, detail?: EventMap[EventName]) => void;
   clear: () => void;
-};
+}
 
 export const create_event_dispatcher = <EventMap extends Record<string, any>>(): EventDispatcher<EventMap> => {
   const events = new Map<keyof EventMap, CallableFunction[]>();

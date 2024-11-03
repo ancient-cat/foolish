@@ -28,7 +28,7 @@ export const create_ui = <
   initial_state: State,
 ): UIBridge<typeof Component> => {
   const events = create_event_connecter<Events>();
-  const state: State = {... initial_state, };
+  const state: State = { ...initial_state };
 
   const stateProxy = new Proxy(state, {
     set(obj, prop, value) {
@@ -37,15 +37,14 @@ export const create_ui = <
           [prop]: value,
         });
       }
-      
+
       return Reflect.set(obj, prop, value);
     },
-  })
+  });
 
   let component: SvelteComponent | undefined = undefined;
 
   const mount = () => {
-
     const target = get(root_el);
     assert(target !== undefined, "root element was not ready before ui.mount() was called");
 
@@ -80,8 +79,6 @@ export const create_ui = <
   };
 };
 
-
-
 export interface ComponentEventForwarder<EventMap extends Record<string, any> = Record<string, any>> {
   on: <EventName extends keyof EventMap>(type: EventName, callback: (event: EventMap[EventName]) => unknown) => Unsubscriber;
   once: <EventName extends keyof EventMap>(type: EventName, callback: (event: EventMap[EventName]) => unknown) => Unsubscriber;
@@ -89,7 +86,7 @@ export interface ComponentEventForwarder<EventMap extends Record<string, any> = 
   emit: <EventName extends keyof EventMap>(event: EventName, detail?: EventMap[EventName]) => void;
   clear: () => void;
   mount: <T extends ComponentType>(component: InstanceType<T>) => () => void;
-};
+}
 
 export const create_event_connecter = <EventMap extends Record<string, any>>(): ComponentEventForwarder<EventMap> => {
   const events = new Map<keyof EventMap, CallableFunction[]>();
@@ -150,13 +147,13 @@ export const create_event_connecter = <EventMap extends Record<string, any>>(): 
           .keys()
           .filter((key): key is string => typeof key === "string" && !listened_keys.has(key))
           .forEach((key) => {
-            console.log(Array.from(listened_keys))
+            console.log(Array.from(listened_keys));
             const unsub = component.$on(key, (e) => {
               signal.emit(key, e.detail);
             });
             listened_keys.set(key, unsub);
           });
-      }
+      };
 
       addListeners();
       const unlisten = changed.subscribe(addListeners);

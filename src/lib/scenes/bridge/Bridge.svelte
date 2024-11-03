@@ -23,7 +23,7 @@
   }
 
   function onMouseMove(e: MouseEvent) {
-    dispatch("mousemove", { x: e.x, y: e.y, });
+    dispatch("mousemove", { x: e.x, y: e.y });
   }
 </script>
 
@@ -31,7 +31,7 @@
 
 <h1>{title}</h1>
 
-<button on:click={() => count -= 1}>-</button>
+<button on:click={() => (count -= 1)}>-</button>
 <button on:click={onClick}>{count}</button>
-<button on:click={() => count += 1}>+</button>
+<button on:click={() => (count += 1)}>+</button>
 <pre style="margin: 1rem;">{JSON.stringify(mouse)}</pre>

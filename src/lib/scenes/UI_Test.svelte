@@ -12,14 +12,14 @@
 </script>
 
 <script lang="ts">
-  import { createEventDispatcher,} from "svelte";
+  import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   export let title: string;
   export let count: number = 0;
 
-  $: dispatch("count", count)
+  $: dispatch("count", count);
 
   function add() {
     count += 1;

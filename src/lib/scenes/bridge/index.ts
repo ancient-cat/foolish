@@ -3,24 +3,22 @@ import { create_ui } from "$lib/ui/ui.js";
 
 import Bridge from "./Bridge.svelte";
 
-
 export default Scenes.create(async () => {
-
   const ui = create_ui(Bridge, {
     count: 10,
     title: "Hello from Scene",
-    mouse: { x: 0, y: 0, },
+    mouse: { x: 0, y: 0 },
   });
 
   ui.on("click", () => {
-    console.log("UI click received in scene")
+    console.log("UI click received in scene");
   });
 
   ui.on("mousemove", (event) => {
     ui.state.mouse = {
       x: event.detail.x,
       y: event.detail.y,
-    }
+    };
   });
 
   return {
@@ -28,7 +26,6 @@ export default Scenes.create(async () => {
     enter: () => {
       return ui.mount();
     },
-    update: (t) => {
-    },
+    update: (t) => {},
   };
 });
