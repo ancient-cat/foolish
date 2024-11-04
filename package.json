@@ -1,6 +1,6 @@
 {
-  "name": "@ancient-cat/foolish",
-  "version": "7.2.1",
+  "name": "squander",
+  "version": "0.0.1",
   "private": false,
   "scripts": {
     "dev": "vite dev",
@@ -58,5 +58,9 @@
   },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ancient-cat/squander.git"
+  }
 }
