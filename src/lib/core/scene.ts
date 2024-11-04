@@ -3,7 +3,7 @@ import { create_writable, tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
 import { app, is_ready } from "./app.js";
 import type { Unsubscriber } from "svelte/store";
-import { assert } from "./assert.ts";
+import { assert } from "./assert.js";
 
 export const current_scene = create_writable<Scene | undefined>(undefined);
 
