@@ -1,4 +1,4 @@
-import { Scenes } from "$lib/core/scene.js";
+import { Scenes, use } from "$lib/core/scene.js";
 import { Container, Assets, Sprite, Texture } from "pixi.js";
 
 import { create_input_map } from "$lib/core/input.js";
@@ -54,39 +54,52 @@ export default Scenes.create(async () => {
     enter: async () => {
       // Create and add a container to the stage
 
-      const dismount_all = mount_all(
-        camera.mount(),
+      use(camera.mount());
+      use(
         ui.on("reset", () => {
           camera.moveCenter(container);
         }),
-        ui.mount(),
+      );
+      use(ui.mount());
+      use(
         input.keyboard.on("keydown", (e) => {
           console.log("keydown", e, e.detail.key);
         }),
+      );
 
+      use(
         input.on("move_left", () => {
           console.log("input -> move_left");
           //   container.rotation += 2;
         }),
+      );
+
+      use(
         input.on("move_right", () => {
           console.log("input -> move_right");
           //   container.rotation += 2;
         }),
+      );
+
+      use(
         input.on("move_down", () => {
           console.log("input -> move_down");
           //   container.scale.x *= 0.9;
           //   container.scale.y *= 0.9;
         }),
+      );
+
+      use(
         input.on("move_up", () => {
           console.log("input -> move_up");
           //   container.scale.x *= 1.1;
           //   container.scale.y *= 1.1;
         }),
-
-        input.subscribe(),
       );
 
-      return dismount_all;
+      use(input.subscribe());
+
+      return () => {};
     },
     update: (time) => {
       const px_per_sec = 8 * time.deltaTime;

@@ -2,8 +2,12 @@ import type { Readable } from "./observable/store-types.js";
 import { create_writable, tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
 import { app, is_ready } from "./app.js";
+import type { Unsubscriber } from "svelte/store";
+import { assert } from "./assert.ts";
 
 export const current_scene = create_writable<Scene | undefined>(undefined);
+
+const scene_context: Map<string, Unsubscriber[]> = new Map();
 
 type MaybePromise = Promise<void> | void;
 type MaybeUnsubscriber = (() => Promise<() => void>) | (() => void);
@@ -17,9 +21,16 @@ type LoadedScene = Promise<Scene>;
  */
 type SceneInitializer = () => LoadedScene;
 
+export const use = (...unsubs: Unsubscriber[]) => {
+  const scene = current_scene.get();
+  assert(scene !== undefined);
+  const list = scene_context.get(scene.name) ?? [];
+  list.push(...unsubs);
+  scene_context.set(scene.name, list);
+};
+
 export type Scene = {
   name: string;
-  stores?: Readable<any>[];
   update: (t: Ticker) => void;
   init?: () => MaybePromise;
   enter?: (from?: Scene) => MaybeUnsubscriber | MaybePromise | Promise<MaybeUnsubscriber>;
@@ -58,20 +69,15 @@ const enter_scene = async (scene: Scene) => {
   }
 
   Scenes.resume(scene);
-
-  // CASE: tap stores after so we can set stores without effects inside of scene.enter
-  if (scene.stores !== undefined) {
-    console.log(`Scene has ${scene.stores.length} stores. Tapping...`);
-    tap(...scene.stores);
-  }
 };
 
 const exit_scene = async (scene: Scene) => {
-  if (scene.stores !== undefined) {
-    untap(...scene.stores);
-  }
-
   Scenes.pause(scene);
+
+  if (scene_context.has(scene.name)) {
+    const unsubs = scene_context.get(scene.name);
+    unsubs?.forEach((u) => u());
+  }
 
   if (scene_dismounts.has(scene.name)) {
     const dismounter = scene_dismounts.get(scene.name);
