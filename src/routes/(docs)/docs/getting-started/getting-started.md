@@ -20,7 +20,7 @@ npm i @ancient-cat/foolish@latest svelte pixi.js
 
 ## Usage
 
-Once you have the mechanism in which you will run a webpage configured, follow these steps:
+By whatever mechanism you combine these libraries, as long as you can import a svelte component you can continue with the next steps.
 
 ### 1. Use Game component
 
@@ -47,8 +47,6 @@ Once you have the mechanism in which you will run a webpage configured, follow t
 
 ### 2. Create a Scene
 
-It's suggested to create scenes within a `scenes` directory.
-
 ```ts
 // my_scene.ts
 import { Scenes, app } from "@ancient-cat/foolish";
@@ -69,6 +67,10 @@ export default Scenes.create(async () => {
   };
 });
 ```
+
+<small>
+Note: It's suggested to create scenes within a `src/scenes` directory.
+</small>
 
 ### 3. Switch to your scene
 
@@ -129,6 +131,6 @@ export default Scenes.create(async () => {
 });
 ```
 
-Which will render to the following
+Which will result in this simple screen:
 
 <HelloWorld />
