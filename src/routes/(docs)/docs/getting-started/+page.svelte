@@ -1,5 +1,5 @@
 <script>
-    import GettingStarted from "./getting-started.md";
+  import GettingStarted from "./getting-started.md";
 </script>
 
 <GettingStarted />

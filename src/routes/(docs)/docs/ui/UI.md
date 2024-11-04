@@ -1,5 +1,3 @@
-
-
 # UI
 
 ## About
@@ -12,7 +10,6 @@ It is mounted and controlled via scenes. <br/><br/>
 In theory you could have many UIs per scene, but likely simplest to keep it 1 to 1.
 </small>
 
-
 ## Creating a UI Svelte Component
 
 In _Hello World_ fashion:
@@ -20,7 +17,7 @@ In _Hello World_ fashion:
 ```svelte
 <!-- HelloWorld.svelte -->
 <script lang="ts">
-    export let name: string;
+  export let name: string;
 </script>
 
 <h1>Hello {name}</h1>
@@ -36,6 +33,7 @@ This example builds upon the _Getting Started_ example.
 <br/><br/>
 
 Examine the following changes, which add a ui bridge to a scene:
+
 ```diff
 // my_scene.ts
 - import { Scenes, app } from "@ancient-cat/foolish";
@@ -46,9 +44,9 @@ export default Scenes.create(async () => {
 
      // this space here is powerful
      // it is a closure for your scene which allows you to initialize systems, load assets, and more.
- 
+
 -     // return a Scene object
-+ 
++
 +   const ui = create_ui(HelloWorld, {
 +       name: "world",
 +   })
@@ -72,10 +70,10 @@ export default Scenes.create(async () => {
 });
 ```
 
-
 ## Manipulating UI
 
 ### From your scene
+
 Manipulating state is as simple as manipulating the `state` object of the bridge.
 The state object should match the `props` of your component.
 
@@ -91,39 +89,35 @@ You can communicate to your scene from your UI via svelte's events—primarily b
 
 ```svelte
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
-    const dispatch = createEventDispatcher();
-
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 </script>
 
 <button on:click={() => dispatch("notify")} on:click>Click</button>
 ```
 
 Then, in your scene:
+
 ```ts
-
-
 ui.on("notify", (e: CustomEvent<void>) => {
-    console.log("Hello from scene");
+  console.log("Hello from scene");
 });
-
 ```
-
 
 While unlikely—If your UI has it's own state that the UI needs to know about in _real-time_, you can add a reactive statement that dispatches.
 
 ```svelte
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
-    const dispatch = createEventDispatcher();
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 
-    export let count: number = 10;
+  export let count: number = 10;
 
-    $: dispatch("count", count);
+  $: dispatch("count", count);
 
-    function addOne() {
-        count += 1;
-    }
+  function addOne() {
+    count += 1;
+  }
 </script>
 
 <p>{count}</p>

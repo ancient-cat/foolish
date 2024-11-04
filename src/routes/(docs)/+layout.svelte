@@ -1,41 +1,39 @@
 <script lang="ts">
-    import { base } from "$app/paths";
-    import { getStores, navigating, page, updated } from '$app/stores';
+  import { base } from "$app/paths";
+  import { getStores, navigating, page, updated } from "$app/stores";
 
+  $: pagePath = $page.url.pathname;
 
-    $: pagePath = $page.url.pathname
+  let links: [label: string, link: string][] = [["about", "/"]];
 
-    
-    let links: [label: string, link: string, ][] = [
-      ["about", "/"],
-    ];
+  let documentation: string[] = ["getting-started", "ui"];
 
-    let documentation: string[] = [
-      "getting-started",
-      "ui"
-    ];
-
-    let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge"];
+  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge"];
 </script>
+
+<svelte:head>
+  <link href={`${base}/fonts.css`} rel="stylesheet" />
+  <link href={`${base}/prism-hopscotch.css`} rel="stylesheet" />
+</svelte:head>
 
 <div class="container content">
   <header class="sidebar subtitle">
     <svelte:element this={pagePath === "/" ? "h1" : "h2"} class="title">Foolish</svelte:element>
     <nav class="list">
       {#each links as [label, link]}
-        <a  class="link" class:active={link === pagePath} href={`${base}${link}`}>{label}</a>
+        <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{label}</a>
       {/each}
 
       <h5 class="sep subtitle">Docs</h5>
       {#each documentation as doc}
-      {@const link = `/docs/${doc}`}
+        {@const link = `/docs/${doc}`}
         <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{doc}</a>
       {/each}
 
       <h5 class="sep subtitle">Scenes</h5>
       {#each scenes as scene}
         {@const link = `/scenes/${scene}`}
-        <a  class="link" class:active={link === pagePath} href={`${base}${link}`}>{scene}</a>
+        <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{scene}</a>
       {/each}
     </nav>
   </header>
@@ -43,8 +41,6 @@
     <slot />
   </main>
 </div>
-
-
 
 <style>
   .sidebar {
@@ -55,13 +51,13 @@
     padding: 2rem 2rem;
   }
   .list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   .content {
-      padding: 2rem 2rem;
-      display: grid;
+    padding: 2rem 2rem;
+    display: grid;
   }
 
   @media screen and (min-width: 64rem) {
@@ -71,10 +67,8 @@
       grid-template-columns: 14rem auto;
       gap: 2.5vw;
       height: 100vh;
+    }
   }
-  }
-
-
 
   .page {
     margin-top: 2rem;
@@ -88,7 +82,6 @@
     margin-top: 1rem;
   }
 
-  
   .title {
     font-size: 1.5em;
     margin-bottom: 1rem;
@@ -113,15 +106,14 @@
   }
 
   .active {
-      color: #fff;
-      background-color: hsla(0deg, 0%, 0%, 0.2);
+    color: #fff;
+    background-color: hsla(0deg, 0%, 0%, 0.2);
   }
 
   .active:before {
     content: "⋊";
     color: #444;
-    
+
     text-decoration: none;
   }
-
 </style>

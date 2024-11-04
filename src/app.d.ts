@@ -10,12 +10,12 @@ declare global {
   }
 }
 
-declare module '*.md' {
-	import type { SvelteComponent } from 'svelte'
+declare module "*.md" {
+  import type { SvelteComponent } from "svelte";
 
-	export default class Comp extends SvelteComponent{}
+  export default class Comp extends SvelteComponent {}
 
-	export const metadata: Record<string, unknown>
+  export const metadata: Record<string, unknown>;
 }
 
 export {};

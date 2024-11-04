@@ -8,7 +8,7 @@ import { Assets, Container, Graphics, Sprite, Text, type Texture } from "pixi.js
 export default Scenes.create(async () => {
   const container = new Container();
 
-  const basicText = new Text({ text: "", });
+  const basicText = new Text({ text: "" });
 
   const ui = create_ui(UI_Test, {
     title: "UI Test",

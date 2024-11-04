@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { app, Game, Scenes } from "$lib/index.ts";
-    import { Text } from "pixi.js"
+  import { app, Game, Scenes } from "$lib/index.ts";
+  import { Text } from "pixi.js";
 
-//   import { Game } from "$lib/core/ui/Game.svelte";
+  //   import { Game } from "$lib/core/ui/Game.svelte";
 
   const hello_world_scene = Scenes.create(async () => {
     return {
@@ -31,16 +31,16 @@
 </script>
 
 <div class="constrained">
-    <Game on:start={init} />
+  <Game on:start={init} />
 </div>
 
 <style>
-    .constrained {
-        aspect-ratio: 1;
-        max-width: 90%;
-    }
-    :global(.constrained .game-target canvas) {
-        width: 100%;
-        height: 100%;
-    }
+  .constrained {
+    aspect-ratio: 1;
+    max-width: 90%;
+  }
+  :global(.constrained .game-target canvas) {
+    width: 100%;
+    height: 100%;
+  }
 </style>
