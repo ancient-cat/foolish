@@ -1,11 +1,9 @@
-# Foolish
+# squander
 
-This library is a suite of tools for building games in typescript. Which some folks would call foolish.
+This library is a suite of tools for building games in typescript.
 
 ## Usage
 
 ```
-npm i @ancient-cat/foolish
+npm i squander
 ```
-
-You can also check out [a starter project](https://github.com/ancient-cat/foolish-starter).

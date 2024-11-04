@@ -6,7 +6,7 @@
 
 ## Setup a SvelteKit or Svelte project
 
-Foolish exports a component that works well with sveltekit and svelte. <br /><br />
+`squander` exports a component that works well with sveltekit and svelte. <br /><br />
 
 Follow the svelte cli for creating a new barebones, typescript-enabled sveltekit project.
 
@@ -15,7 +15,7 @@ Follow the svelte cli for creating a new barebones, typescript-enabled sveltekit
 To start with you'll need to install the package, and it's peer dependencies.
 
 ```sh
-npm i @ancient-cat/foolish@latest svelte pixi.js
+npm i squander@latest svelte pixi.js
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ By whatever mechanism you combine these libraries, as long as you can import a s
 
 ```svelte
 <script lang="ts">
-  import { Game, app } from "@ancient-cat/foolish";
+  import { Game, app } from "squander";
 
   async function start_game() {
     // start your game code here
@@ -43,13 +43,13 @@ By whatever mechanism you combine these libraries, as long as you can import a s
 <Game on:start={start_game} />
 ```
 
-[Need to know about what's happening behind the scenes?](https://github.com/ancient-cat/foolish/blob/7b40080d8e1babe74d74d17f2942306ee87e874f/src/lib/core/index.ts)
+[Need to know about what's happening behind the scenes?](https://github.com/ancient-cat/squander/blob/7b40080d8e1babe74d74d17f2942306ee87e874f/src/lib/core/index.ts)
 
 ### 2. Create a Scene
 
 ```ts
 // my_scene.ts
-import { Scenes, app } from "@ancient-cat/foolish";
+import { Scenes, app } from "squander";
 
 export default Scenes.create(async () => {
   // this space here is powerful
@@ -76,7 +76,7 @@ Note: It's suggested to create scenes within a `src/scenes` directory.
 
 ```svelte
 <script lang="ts">
-  import { Game, app, Scenes } from "@ancient-cat/foolish";
+  import { Game, app, Scenes } from "squander";
   import my_scene from "./scenes/my_scene.ts";
 
   async function start_game() {
@@ -95,7 +95,7 @@ To complete the experience in hello-world fashion, add this to `my_scene.ts`:
 
 ```diff
 // my_scene.ts
-import { Scenes, app } from "@ancient-cat/foolish";
+import { Scenes, app } from "squander";
 + import { Text } from "pixi.js"
 
 export default Scenes.create(async () => {

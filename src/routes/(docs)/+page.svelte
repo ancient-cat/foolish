@@ -1,6 +1,5 @@
-<p>This library was foolish to write, and likely foolish to use.</p>
-
-<p>With it you can probably build games with typescript.</p>
+<p>With this library you can probably build games with typescript.</p>
+<p>or worse squander your time</p>
 
 <p>It combines the tools below into an unfortunate beauty</p>
 <ul>

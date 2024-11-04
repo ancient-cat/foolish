@@ -36,8 +36,8 @@ Examine the following changes, which add a ui bridge to a scene:
 
 ```diff
 // my_scene.ts
-- import { Scenes, app } from "@ancient-cat/foolish";
-+ import { Scenes, app, create_ui } from "@ancient-cat/foolish";
+- import { Scenes, app } from "squander";
++ import { Scenes, app, create_ui } from "squander";
 + import HelloWorld from "./HelloWorld.svelte";
 
 export default Scenes.create(async () => {

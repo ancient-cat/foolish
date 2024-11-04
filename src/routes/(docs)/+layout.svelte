@@ -18,7 +18,7 @@
 
 <div class="container content">
   <header class="sidebar subtitle">
-    <svelte:element this={pagePath === "/" ? "h1" : "h2"} class="title">Foolish</svelte:element>
+    <svelte:element this={pagePath === "/" ? "h1" : "h2"} class="title">squander</svelte:element>
     <nav class="list">
       {#each links as [label, link]}
         <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{label}</a>
