@@ -1,3 +1,4 @@
+import "../polyfill/promise-with-resolvers.js";
 import type { Readable } from "./observable/store-types.js";
 import { create_writable, tap, untap } from "./observable/stores.js";
 import type { Application, Container, Ticker } from "pixi.js";
