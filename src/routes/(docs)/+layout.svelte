@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { afterNavigate } from "$app/navigation";
   import { base } from "$app/paths";
   import { getStores, navigating, page, updated } from "$app/stores";
+  import type { LayoutData } from "./$types.js";
 
   $: pagePath = $page.url.pathname;
 
@@ -9,6 +11,13 @@
   let documentation: string[] = ["getting-started", "ui"];
 
   let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge", "stack"];
+  export let data: LayoutData;
+
+  afterNavigate(() => {
+    document.querySelector("#top")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  });
 </script>
 
 <svelte:head>
@@ -18,7 +27,11 @@
 
 <div class="container content">
   <header class="sidebar subtitle">
-    <svelte:element this={pagePath === "/" ? "h1" : "h2"} class="title">squander</svelte:element>
+    <div class="title-and-version">
+      <svelte:element this={pagePath === "/" ? "h1" : "h2"} class="title">squander</svelte:element>
+      <a href={`${base}/package`} class="version"><span class="tiny-v">v</span>{data.package.version}</a>
+    </div>
+
     <nav class="list">
       {#each links as [label, link]}
         <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{label}</a>
@@ -31,24 +44,35 @@
       {/each}
 
       <h5 class="sep subtitle">Scenes</h5>
-      {#each scenes as scene}
-        {@const link = `/scenes/${scene}`}
-        <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{scene}</a>
-      {/each}
+      <div data-sveltekit-reload>
+        {#each scenes as scene}
+          {@const link = `/scenes/${scene}`}
+          <a class="link" class:active={link === pagePath} href={`${base}${link}`}>{scene}</a>
+        {/each}
+      </div>
     </nav>
+    <div class="links">
+      <a class="external-link" href="https://github.com/ancient-cat/squander" target="_blank">github</a>
+      <a class="external-link" href="https://www.npmjs.com/package/squander" target="_blank">npm</a>
+    </div>
   </header>
   <main class="page">
+    <a class="invisible" id="top">top</a>
     <slot />
   </main>
 </div>
 
 <style>
+  .invisible {
+    visibility: hidden;
+  }
   .sidebar {
     margin: 0 0;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 2rem 2rem;
+    padding: 3rem 2rem;
+    background-color: #232121;
   }
   .list {
     display: flex;
@@ -56,17 +80,25 @@
     gap: 0.5rem;
   }
   .content {
-    padding: 2rem 2rem;
     display: grid;
+  }
+
+  .page {
+    padding: 2rem 2rem;
+    min-height: 100vh;
   }
 
   @media screen and (min-width: 64rem) {
     .content {
-      padding: 2rem 2rem;
+      padding: 0rem 0rem;
       display: grid;
       grid-template-columns: 14rem auto;
       gap: 2.5vw;
       height: 100vh;
+    }
+
+    .page {
+      padding: 0;
     }
   }
 
@@ -84,7 +116,6 @@
 
   .title {
     font-size: 1.5em;
-    margin-bottom: 1rem;
   }
 
   .link {
@@ -115,5 +146,45 @@
     color: #444;
 
     text-decoration: none;
+  }
+
+  .version {
+    font-size: 1.25rem;
+    text-transform: lowercase;
+    color: var(--gray-7);
+    text-decoration-color: var(--gray-7);
+  }
+
+  .version:hover {
+    color: var(--red-4);
+    text-decoration-color: var(--red-4);
+  }
+
+  .title-and-version {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .tiny-v {
+    font-size: 0.75em;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    border-top: 1px dashed #444;
+    border-bottom: 1px dashed #444;
+    padding: 0.25em 0.25em;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .links a {
+    color: var(--gray-5);
   }
 </style>

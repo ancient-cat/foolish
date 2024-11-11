@@ -5,8 +5,13 @@
 }
 
 :root {
-  --link: #ca985c;
-  --link-visited: #ca485c;
+  --brand: var(--red-4);
+  /* --link: #ca985c;
+  --link-visited: #ca485c; */
+}
+
+:where(a[href]):where(:visited) {
+  color: var(--brand);
 }
 
 .geo-regular {

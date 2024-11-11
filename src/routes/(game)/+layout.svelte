@@ -4,7 +4,7 @@
 
 <slot />
 
-<footer class="backlink">
+<footer class="backlink" data-sveltekit-reload>
   <a href={`${base}/`}>Back to root</a>
 </footer>
 
