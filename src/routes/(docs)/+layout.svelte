@@ -8,7 +8,7 @@
 
   let documentation: string[] = ["getting-started", "ui"];
 
-  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge"];
+  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge", "stack"];
 </script>
 
 <svelte:head>
