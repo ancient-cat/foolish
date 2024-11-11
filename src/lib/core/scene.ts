@@ -83,6 +83,7 @@ const exit_scene = async (scene: Scene) => {
   if (scene_dismounts.has(scene.name)) {
     const dismounter = scene_dismounts.get(scene.name);
     if (typeof dismounter === "function") {
+      scene_dismounts.delete(scene.name);
       await dismounter();
     }
   }
@@ -103,7 +104,7 @@ export const Scenes: SceneManager = {
 
   on_ready: promise,
 
-  current: () => scenes.at(0) ?? undefined,
+  current: () => scenes.at(-1) ?? undefined,
 
   get_scenes: () => scenes,
 
@@ -141,7 +142,14 @@ export const Scenes: SceneManager = {
 
   push: async (scene_capability) => {
     const scene = await scene_capability;
-    const current = Scenes.current();
+
+    if (scene.init !== undefined) {
+      if (!initialized_scenes.has(scene.name)) {
+        initialized_scenes.add(scene.name);
+        await scene.init();
+      }
+    }
+
     scenes.push(scene);
     await enter_scene(scene);
   },
