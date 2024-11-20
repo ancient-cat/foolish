@@ -36,11 +36,12 @@ By whatever mechanism you combine these libraries, as long as you can import a s
     });
 
     // alternately, you can import a function and call it
-    // <Game on:start={my_function} />
+    // import my_function from "./my_function";
+    // <Game onStart={my_function} />
   }
 </script>
 
-<Game on:start={start_game} />
+<Game onStart={start_game} />
 ```
 
 [Need to know about what's happening behind the scenes?](https://github.com/ancient-cat/squander/blob/7b40080d8e1babe74d74d17f2942306ee87e874f/src/lib/core/index.ts)
@@ -84,7 +85,7 @@ Note: It's suggested to create scenes within a `src/scenes` directory.
   }
 </script>
 
-<Game on:start={start_game} />
+<Game onStart={start_game} />
 ```
 
 ### Next Steps

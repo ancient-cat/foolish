@@ -27,9 +27,8 @@ In _Hello World_ fashion:
 
 The bridge will handle rendering on-top-of the Game screen area when mounted.
 <br />
-Additionally, it will forward events from the component to your scene, and forward changes to state to the rendered component.
-<br />
-This example builds upon the _Getting Started_ example.
+This example builds upon the <i>Getting Started</i> example.
+
 <br/><br/>
 
 Examine the following changes, which add a ui bridge to a scene:
@@ -74,53 +73,30 @@ export default Scenes.create(async () => {
 
 ### From your scene
 
-Manipulating state is as simple as manipulating the `state` object of the bridge.
-The state object should match the `props` of your component.
+Manipulating state is as simple as manipulating the `props` object provided to `create_ui`, or the `props` object returned from `create_ui`.
 
 So, for the hello world example, you could update the text dynamically at any time by just calling:
 
 ```ts
-ui.state.name = "test";
+ui.props.name = "twirled";
 ```
 
-### Notifying your scene
+## Alternative UI
 
-You can communicate to your scene from your UI via svelte's events—primarily by dispatching events yourself.
-
-```svelte
-<script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
-</script>
-
-<button on:click={() => dispatch("notify")} on:click>Click</button>
-```
-
-Then, in your scene:
+if your UI needs to be tightly bound to a specific system, you can use the `ui_proxy` function:
 
 ```ts
-ui.on("notify", (e: CustomEvent<void>) => {
-  console.log("Hello from scene");
+import { ui_proxy } from "squander";
+
+const system_state = ui_proxy({
+  todos: [],
 });
+
+const ui = create_ui(HelloWorld, {
+  something: system_state,
+});
+
+const other_system = create_system(system_state);
 ```
 
-While unlikely—If your UI has it's own state that the UI needs to know about in _real-time_, you can add a reactive statement that dispatches.
-
-```svelte
-<script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
-
-  export let count: number = 10;
-
-  $: dispatch("count", count);
-
-  function addOne() {
-    count += 1;
-  }
-</script>
-
-<p>{count}</p>
-
-<button on:click={addOne}>Add +1</button>
-```
+Note: It's best to use an object for this, not a primitive type.
