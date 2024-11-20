@@ -61,6 +61,7 @@ export type InitBattleState = {
 export type BattleSystem = ReturnType<typeof create_battle_system>;
 
 export type ActionSystem = unknown;
+export type Buff = unknown;
 
 export type BattleActor = {
   can_act: boolean;
@@ -103,6 +104,10 @@ export class HealStrategy implements ActionStrategy {
     const base_heal = 4;
     target.stats.health += random(base_heal, base_heal * 2);
   }
+}
+
+function random(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export class KillStrategy implements ActionStrategy {

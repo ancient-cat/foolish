@@ -1,6 +1,4 @@
-import type { BattleActor } from "./actors.js";
-import type { BattleQueueItem, BattleState, BattleSystem } from "./index.ts";
-import { pick_option } from "./random.ts";
+import { pick_option, type BattleActor, type BattleQueueItem, type BattleState, type BattleSystem } from "./index.ts";
 
 export const create_ai = (state: BattleState, enqueue: BattleSystem["enqueue"]) => {
   const action_state = new Set<BattleActor>();

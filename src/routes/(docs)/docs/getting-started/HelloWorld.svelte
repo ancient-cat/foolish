@@ -31,7 +31,7 @@
 </script>
 
 <div class="constrained">
-  <Game on:start={init} />
+  <Game onStart={init} />
 </div>
 
 <style>
