@@ -1,37 +1,28 @@
-<script lang="ts" context="module">
-  export type State = {
-    title: Writable<string>;
-    mouse: Writable<{ x: number; y: number }>;
-  };
-
-  export type Events = {
-    reset: undefined;
-  };
-</script>
-
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import type { Writable } from "svelte/store";
-  const dispatch = createEventDispatcher();
-
-  export let title: string;
-  export let mouse: { x: number; y: number };
-  export let count: number = 0;
-
-  function onClick() {
-    dispatch("click", count);
+  interface Props {
+    title: string;
+    mouse: { x: number; y: number };
+    count?: number;
+    onClick?: (click: number) => void;
+    onMouseMove?: (mouse: { x: number; y: number }) => void;
   }
 
-  function onMouseMove(e: MouseEvent) {
-    dispatch("mousemove", { x: e.x, y: e.y });
+  let { title, mouse, count = $bindable(0), onClick, onMouseMove }: Props = $props();
+
+  function _onClick() {
+    onClick?.(count);
+  }
+
+  function _onMouseMove(e: MouseEvent) {
+    onMouseMove?.({ x: e.x, y: e.y });
   }
 </script>
 
-<svelte:window on:mousemove={onMouseMove} />
+<svelte:window onmousemove={_onMouseMove} />
 
 <h1>{title}</h1>
 
-<button on:click={() => (count -= 1)}>-</button>
-<button on:click={onClick}>{count}</button>
-<button on:click={() => (count += 1)}>+</button>
+<button onclick={() => (count -= 1)}>-</button>
+<button onclick={_onClick}>{count}</button>
+<button onclick={() => (count += 1)}>+</button>
 <pre style="margin: 1rem;">{JSON.stringify(mouse)}</pre>

@@ -1,7 +1,7 @@
 import { app } from "$lib/core/app.js";
 import { create_input_map } from "$lib/core/input.js";
 import { Scenes } from "$lib/core/scene.js";
-import { create_ui } from "$lib/ui/ui.js";
+import { create_ui } from "$lib/ui/ui.svelte.js";
 import { Container, Application, Graphics } from "pixi.js";
 import UI_Test from "$lib/scenes/UI_Test.svelte";
 
@@ -17,7 +17,17 @@ export default Scenes.create(async () => {
   });
 
   const ui = create_ui(UI_Test, {
+    count: 0,
     title: "Hello World",
+    onAdd(count) {
+      console.log("onAdd", count);
+    },
+    onSubtract(count) {
+      console.log("onSubtract", count);
+    },
+    onReset() {
+      ui.props.count = 0;
+    },
   });
 
   return {

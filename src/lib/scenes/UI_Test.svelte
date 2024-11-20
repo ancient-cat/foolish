@@ -1,45 +1,40 @@
-<script lang="ts" context="module">
-  export type State = {
-    title: string;
-    count: number;
-  };
-
-  export type Events = {
-    add: number;
-    subtract: number;
-    reset: undefined;
-  };
-</script>
-
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { run } from "svelte/legacy";
 
-  const dispatch = createEventDispatcher();
+  interface Props {
+    title: string;
+    count?: number;
+    onCount?: (count: number) => void;
+    onAdd?: (count: number) => void;
+    onSubtract?: (count: number) => void;
+    onReset?: () => void;
+  }
 
-  export let title: string;
-  export let count: number = 0;
+  let { title, count = $bindable(0), onCount, onAdd, onSubtract, onReset }: Props = $props();
 
-  $: dispatch("count", count);
+  run(() => {
+    onCount?.(count);
+  });
 
   function add() {
     count += 1;
-    dispatch("add", count);
+    onAdd?.(count);
   }
 
   function subtract() {
     count -= 1;
-    dispatch("subtract", count);
+    onSubtract?.(count);
   }
 
   function reset() {
-    dispatch("reset");
+    onReset?.();
   }
 </script>
 
 <h1>{title}</h1>
 
-<button on:click={reset}>Reset</button>
+<button onclick={reset}>Reset</button>
 
-<button on:click={subtract}> - </button>
+<button onclick={subtract}> - </button>
 {count}
-<button on:click={add}> + </button>
+<button onclick={add}> + </button>

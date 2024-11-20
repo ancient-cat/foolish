@@ -1,25 +1,25 @@
 <script lang="ts">
   import UserInterface from "./UserInterface.svelte";
   import PixiRenderer from "./PixiRenderer.svelte";
+  import { type Snippet } from "svelte";
 
-  import { createEventDispatcher } from "svelte";
   import { initialize } from "$lib/core/index.js";
   import { Scenes, type Scene } from "$lib/core/scene.js";
+  interface Props {
+    children?: Snippet<any>;
+    onStart: () => void;
+  }
 
-  let scene: Scene;
+  let { onStart }: Props = $props();
 
-  const dispatch = createEventDispatcher();
-
-  async function start(e: CustomEvent<HTMLElement>) {
-    await initialize(e.detail);
+  async function start(target: HTMLElement) {
+    await initialize(target);
     Scenes.init();
-    dispatch("start");
+
+    onStart();
   }
 </script>
 
 <UserInterface>
-  <PixiRenderer on:ready={start} />
-  <svelte:fragment slot="ui">
-    <slot {scene} />
-  </svelte:fragment>
+  <PixiRenderer onReady={start} />
 </UserInterface>

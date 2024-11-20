@@ -1,15 +1,21 @@
 <script lang="ts">
-  import { root_el } from "./ui.js";
+  import { root_el } from "./ui.svelte.js";
+  interface Props {
+    children?: import("svelte").Snippet;
+    ui?: import("svelte").Snippet;
+  }
+
+  let { children, ui }: Props = $props();
 </script>
 
 <main class="stack">
   <div class="game">
-    <slot />
+    {@render children?.()}
   </div>
 
   <div class="ui-root roboto-mono">
-    <div bind:this={$root_el} class="ui-interactive" />
-    <slot name="ui" />
+    <div bind:this={$root_el} class="ui-interactive"></div>
+    {@render ui?.()}
   </div>
 </main>
 

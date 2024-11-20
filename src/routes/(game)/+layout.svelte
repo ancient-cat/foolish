@@ -1,8 +1,13 @@
 <script lang="ts">
   import { base } from "$app/paths";
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 </script>
 
-<slot />
+{@render children?.()}
 
 <footer class="backlink" data-sveltekit-reload>
   <a href={`${base}/`}>Back to root</a>
@@ -20,7 +25,7 @@
     z-index: 2;
   }
 
-  .backlink :where(a) {
+  .backlink :where(:global(a)) {
     color: #fff !important;
   }
 </style>

@@ -1,20 +1,26 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
 
-  const dispatch = createEventDispatcher();
+  interface Props {
+    onReady?: (target: HTMLElement) => void;
+    onDismount?: () => void;
+  }
+  const { onReady, onDismount }: Props = $props();
 
-  let target: HTMLElement;
+  let target: HTMLElement | undefined = $state();
 
   onMount(() => {
-    dispatch("ready", target);
+    if (target !== undefined) {
+      onReady?.(target);
+    }
 
     return () => {
-      dispatch("dismount");
+      onDismount?.();
     };
   });
 </script>
 
-<div class="game-target" bind:this={target} />
+<div class="game-target" bind:this={target}></div>
 
 <style>
   .game-target {

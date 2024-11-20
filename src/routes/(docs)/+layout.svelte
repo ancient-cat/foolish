@@ -4,14 +4,19 @@
   import { getStores, navigating, page, updated } from "$app/stores";
   import type { LayoutData } from "./$types.js";
 
-  $: pagePath = $page.url.pathname;
+  let pagePath = $derived($page.url.pathname);
 
   let links: [label: string, link: string][] = [["about", "/"]];
 
   let documentation: string[] = ["getting-started", "ui"];
 
-  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge", "stack"];
-  export let data: LayoutData;
+  let scenes: string[] = ["pixi-demo", "test", "camera", "ui-test", "ui-bridge", "stack", "complex-example"];
+  interface Props {
+    data: LayoutData;
+    children?: import("svelte").Snippet;
+  }
+
+  let { data, children }: Props = $props();
 
   afterNavigate(() => {
     document.querySelector("#top")?.scrollIntoView({
@@ -58,7 +63,7 @@
   </header>
   <main class="page">
     <a class="invisible" id="top">top</a>
-    <slot />
+    {@render children?.()}
   </main>
 </div>
 

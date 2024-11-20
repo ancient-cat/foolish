@@ -1,8 +1,8 @@
 import { app } from "$lib/core/app.js";
 import { mount_all } from "$lib/core/observable/utils.js";
 import { Scenes } from "$lib/core/scene.js";
-import UI_Test, { type Events, type State } from "../scenes/UI_Test.svelte";
-import { create_ui } from "$lib/ui/ui.js";
+import UI_Test from "../scenes/UI_Test.svelte";
+import { create_ui } from "$lib/ui/ui.svelte.ts";
 import { Assets, Container, Graphics, Sprite, Text, type Texture } from "pixi.js";
 
 export default Scenes.create(async () => {
@@ -13,6 +13,12 @@ export default Scenes.create(async () => {
   const ui = create_ui(UI_Test, {
     title: "UI Test",
     count: 4,
+    onCount(count) {
+      basicText.text = `Renderer count: ${count}`;
+    },
+    onReset() {
+      ui.props.count = 0;
+    },
   });
 
   return {
@@ -23,15 +29,7 @@ export default Scenes.create(async () => {
     enter: () => {
       app.stage.addChild(container);
 
-      const unsub = mount_all(
-        ui.on("count", ({ detail: count }) => {
-          basicText.text = `Renderer count: ${count}`;
-        }),
-        ui.mount(),
-        ui.on("reset", () => {
-          ui.state.count = 0;
-        }),
-      );
+      const unsub = mount_all(ui.mount());
 
       return () => {
         unsub();

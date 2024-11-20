@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
+  interface Props {
+    title: string;
+    onReset: () => void;
+  }
 
-  export let title: string;
+  let { title, onReset }: Props = $props();
 </script>
 
 <h1>{title}</h1>
-<button on:click={() => dispatch("reset")}>Reset</button>
+<button onclick={onReset}>Reset</button>

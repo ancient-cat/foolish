@@ -4,7 +4,11 @@
   import { Assets, Container, Sprite } from "pixi.js";
   import { onMount } from "svelte";
 
-  export let scene: Scene;
+  interface Props {
+    scene: Scene;
+  }
+
+  let { scene }: Props = $props();
 
   async function start() {
     await initialize(document.body);

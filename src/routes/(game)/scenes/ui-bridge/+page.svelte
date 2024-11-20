@@ -8,4 +8,4 @@
   }
 </script>
 
-<Game on:start={initialize} />
+<Game onStart={initialize} />

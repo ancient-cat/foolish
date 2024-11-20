@@ -3,7 +3,7 @@ import { Container, Assets, Sprite, Texture } from "pixi.js";
 
 import { create_input_map } from "$lib/core/input.js";
 import { mount_all } from "$lib/core/observable/utils.js";
-import { create_ui } from "$lib/ui/ui.js";
+import { create_ui } from "$lib/ui/ui.svelte.js";
 import Camera from "./Camera.svelte";
 import { as_draggable, create_viewport } from "$lib/create_viewport.js";
 import { app } from "$lib/core/app.js";
@@ -30,6 +30,9 @@ export default Scenes.create(async () => {
 
   const ui = create_ui(Camera, {
     title: "Camera Scene",
+    onReset: () => {
+      camera.moveCenter(container);
+    },
   });
 
   return {
@@ -55,11 +58,7 @@ export default Scenes.create(async () => {
       // Create and add a container to the stage
 
       use(camera.mount());
-      use(
-        ui.on("reset", () => {
-          camera.moveCenter(container);
-        }),
-      );
+
       use(ui.mount());
       use(
         input.keyboard.on("keydown", (e) => {

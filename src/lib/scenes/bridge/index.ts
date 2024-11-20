@@ -1,5 +1,5 @@
 import { Scenes } from "$lib/core/scene.js";
-import { create_ui } from "$lib/ui/ui.js";
+import { create_ui } from "$lib/ui/ui.svelte.js";
 
 import Bridge from "./Bridge.svelte";
 
@@ -8,17 +8,12 @@ export default Scenes.create(async () => {
     count: 10,
     title: "Hello from Scene",
     mouse: { x: 0, y: 0 },
-  });
-
-  ui.on("click", () => {
-    console.log("UI click received in scene");
-  });
-
-  ui.on("mousemove", (event) => {
-    ui.state.mouse = {
-      x: event.detail.x,
-      y: event.detail.y,
-    };
+    onMouseMove(mouse) {
+      ui.props.mouse = mouse;
+    },
+    onClick() {
+      console.log("UI click received in scene");
+    },
   });
 
   return {
